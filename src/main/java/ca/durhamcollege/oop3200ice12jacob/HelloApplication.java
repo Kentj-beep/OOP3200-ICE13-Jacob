@@ -1,12 +1,18 @@
 package ca.durhamcollege.oop3200ice12jacob;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,21 +40,40 @@ public class HelloApplication extends Application {
 //        stage.setMinWidth(300);
 //        stage.setMinHeight(200);
 
-        // Step 1 - Create a control
-        Label hellolabel = new Label("Hello World!");
+        // Step 1 - Create one or more controls
+        Label helloLabel = new Label("Hello World!");
 
-//        Label goodbyeLabel = new Label("Good Bye!");
+        Label goodbyeLabel = new Label("Good Bye!");
 
         Button clickMeButton = new Button("Click me");
 
+        // Step 1.1 - configure controls
+        Font font = Font.font("Consolas", FontWeight.BOLD, 20);
+        clickMeButton.setFont(font);
+
+        // Step 1.2 - For button controls (or other event-types) - set the event
+        clickMeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("ClickMe Button Clicked!");
+
+                helloLabel.setText("Clicked!");
+            }
+        });
+
         // Step 2 - Create a container
-        HBox hbox = new HBox(hellolabel, clickMeButton);
+//        HBox hbox = new HBox(helloLabel, clickMeButton);
+//
+//        VBox vbox = new VBox(helloLabel, clickMeButton);
 
-        VBox vbox = new VBox(hellolabel, clickMeButton);
+        GridPane gridPane = new GridPane();
 
+        gridPane.add(helloLabel, 1, 0);
+        gridPane.add(goodbyeLabel, 1, 1);
+        gridPane.add(clickMeButton, 2, 2);
 
         // Step 3 - Add layout container to scene
-        Scene sceneICE = new Scene(vbox, WIDTH, HEIGHT);
+        Scene sceneICE = new Scene(gridPane, WIDTH, HEIGHT);
 
         // Step 4 - Add scene to stage
 
